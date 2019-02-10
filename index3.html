@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Föli buses and routes</title>
+    <link rel="stylesheet" href="style3.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALaQ4D7CpEWttxDhx7HIHxR0A_sRXVh8Y&callback=myMap"></script>
+</head>
+<body>
+<div>
+    <div class="col-12">
+        <label for="route"><span>Select the bus line: </span><select name="route" id="route">
+        </select></label>
+    </div>
+    <div class="col-12">
+        <input class="show"     onclick="locate_bus()"  align="left"   type="submit" value="Show buses">
+        <input class="refresh"  onclick="refresh()"  align="center" type="submit" value="Refresh">
+        <input class="route"    onclick="find_route()"  align="right"   type="submit" value="Show route">
+
+    </div>
+    <div class="col-8" id="googleMap">
+
+
+    </div>
+
+</div>
+
+</body>
+
+<script>
+
+    document.getElementById("route").addEventListener("load", select_route());
+
+    function select_route() {
+
+        var gtfs = new XMLHttpRequest();
+
+        //Initialize request
+        gtfs.open("GET", "https://data.foli.fi/gtfs/routes",true);
+
+        //check if the request finished and response is ready
+        gtfs.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var routes = JSON.parse(this.responseText);
+
+                var list = "";
+                for (var i = 0; i < routes.length; i++){
+
+                    list += "<option>" + routes[i].route_short_name + "</option>";
+                }
+                //Add route sher name to the drop down list
+                document.getElementById("route").innerHTML = list;
+            }
+            
+        };
+        gtfs.send();
+
+    }
+    function find_route() {
+
+        var gtfs_route = new XMLHttpRequest();
+        var gtfs_trips = new XMLHttpRequest();
+        var gtfs_shapes = new XMLHttpRequest();
+          //Initialize request
+        gtfs_route.open("GET", "https://data.foli.fi/gtfs/routes",true);
+
+        //check if the request finished and response is ready
+        gtfs_route.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var routes = JSON.parse(this.responseText);
+
+                //iterate the array to find the route id that corresponds to the route the user selected
+                for (var i = 0; i < routes.length; i++){
+                    if (routes[i].route_short_name == document.getElementById("route").value ){
+                        var id = routes[i].route_id;
+                        break;
+                    }
+                }
+
+            }
+            // use the the route id of the selected route to initialize the request
+            gtfs_trips.open("GET", "https://data.foli.fi/gtfs/trips/route/"+id, true)
+
+            //check if the request finished and response is ready
+            gtfs_trips.onreadystatechange = function () {
+                if (this.readyState ==4 && this.status == 200){
+                    var trips = JSON.parse(this.responseText);
+
+                    //pick a random shape id
+                    var shapeid = trips[0].shape_id;
+                }
+
+              // use the shape id to initialize the request
+            gtfs_shapes.open("GET", "https://data.foli.fi/gtfs/shapes/"+shapeid, true);
+
+                //check if the request finished and response is ready
+            gtfs_shapes.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200) {
+
+                    var shapes = JSON.parse(this.responseText);
+
+
+                    //use the location coordinates to possition the map
+                    var position = new google.maps.LatLng(shapes[0].lat,shapes[0].lon);
+                    var mapProp= {
+                        center:position,
+                        zoom:13,
+                    };
+
+                    var map= new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+                    var route_coordinates = [];
+                    for (var x = 0; x < shapes.length; x++){
+
+                        //create an array containing the coordinates of the corresponding route
+                        route_coordinates.push({lat: shapes[x].lat,lng: shapes[x].lon });
+
+                    }
+                    //draw the path on the map using the coordinates
+                    var route_path = new google.maps.Polyline({
+                        path: route_coordinates,
+                        map: map,
+                        geodesic: true,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2
+                    });
+
+                }
+            };
+            gtfs_shapes.send();
+
+            };
+            gtfs_trips.send();
+        };
+        google.maps.event.addDomListener(window, 'load', find_route);
+        gtfs_route.send();
+    }
+    function locate_bus() {
+        var vim = new XMLHttpRequest();
+
+       //initialize the request
+        vim.open("GET", "https://data.foli.fi/siri/vm", true);
+
+
+            //check if the request finished and response is ready
+        vim.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200){
+                var location = JSON.parse(this.responseText);
+
+
+                //position the map
+                var position = new google.maps.LatLng(60.45,22.2833);
+                var mapProp= {
+                    center:position,
+                    zoom:10,
+                };
+                var map= new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+                var vehicles = location['result']['vehicles'];
+
+                for (var v in vehicles){
+
+                    //find vihicles on the route selected by the user
+                    if (vehicles[v].publishedlinename == document.getElementById("route").value)  {
+
+
+                        var location_coordinates = new google.maps.LatLng(vehicles[v].latitude,vehicles[v].longitude);
+
+                        var marker = new google.maps.Marker({
+                            position: location_coordinates,
+                            map: map,
+                          
+                       
+                        });
+                    }
+
+                }
+
+            }
+
+        };
+        vim.send();
+    }
+
+    function refresh() {
+        locate_bus().location.reload(true);
+    }
+
+
+</script>
+</html>

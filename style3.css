@@ -1,0 +1,255 @@
+
+
+html {
+    font-family: "Lucida Sans", sans-serif;
+}
+
+.container{
+    width: auto;
+    padding: 30px 30px 15px 30px;
+    margin: 10px auto;
+    background: #e0f8f5;
+    border-radius: 8px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+}
+
+.col-1 {
+    width: 8.33%;
+}
+
+.col-2 {
+    width: 16.66%;
+}
+
+.col-3 {
+    width: 25%;
+    border: 1px solid black;
+    margin-top: 80px;
+}
+
+.col-4 {
+    width: 33.33%;
+    margin-left: 30px;
+    margin-top: 50px;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
+.col-6 {
+    width: 50%;
+    margin-left: 80px;
+    margin-top: 50px;
+    border: 1px solid black;
+}
+
+.col-7 {
+    width: 58.33%;
+    margin-left: 160px;
+}
+
+.col-8 {
+    width: 75%;
+    margin-left: 160px;
+    border: 1px solid black;
+    height:400px;
+
+}
+
+.col-9 {
+    width: 75%;
+
+
+}
+.col-9 p{
+    padding: 10px;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+    margin-left: 160px;
+    border: 1px solid black;
+    height:400px;
+}
+
+.col-12 {
+    width: 100%;
+    padding: 50px 30px 8px 60px;
+}
+.col-12 select{
+    height: 30px;
+    width:15%;
+}
+.show{
+    background: #2A88AD;
+    padding: 8px 30px 8px 20px;
+    margin-left: 100px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+    font: normal 30px 'Bitter', serif;
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    border: 1px solid #257C9E;
+    font-size: 15px;
+}
+.refresh{
+    background: #2A88AD;
+    padding: 8px 30px 8px 20px;
+    margin-left: 360px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+    font: normal 30px 'Bitter', serif;
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    border: 1px solid #257C9E;
+    font-size: 15px;
+}
+.route{
+    background: #2A88AD;
+    padding: 8px 30px 8px 20px;
+    margin-left: 380px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+    font: normal 30px 'Bitter', serif;
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    border: 1px solid #257C9E;
+    font-size: 15px;
+}
+
+.header {
+    border: 1px solid black;
+    text-align: center;
+    padding: 0px;
+}
+
+.nav {
+    float:right!important;
+    padding: 15px;
+    margin-right: 50px;
+}
+.nav a{
+    padding: 8px;
+    margin-bottom: 7px;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.nav a:hover {
+    background-color: #0099cc;
+}
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+.menu li {
+    padding: 8px;
+    margin-bottom: 7px;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.menu li:hover {
+    background-color: #0099cc;
+}
+.img{
+
+}
+@media only screen and (min-device-width: 400px) {
+    .img{
+
+
+    }
+
+}
+
+.col-4 input[type=text]{
+    width: 38%;
+    padding: 5px 30px;
+    margin: 8px 0px 8px 80px;
+
+
+}
+.col-4 input[type=submit]{
+    width: 20%;
+    padding: 8px 30px;
+    margin: 8px 8px 8px 140px;
+
+}
+.col-4 select {
+    width: 50%;
+    padding: 8px 30px;
+    margin: 8px 80px 8px 8px;
+}
+.table-bordered{
+    border:1px solid #dee2e6
+}
+.table-bordered td,
+.table-bordered th{
+    border:1px solid #dee2e6
+}
+.table-bordered thead td,
+.table-bordered thead th{
+    border-bottom-width:2px
+}
+.table{
+    width:100%;
+    margin-bottom:1rem;
+    background-color:transparent
+}
+.table td,
+.table th{
+    padding:.75rem;
+    vertical-align:top;
+    border-top:1px solid #dee2e6
+}
+.table thead th{
+    text-align: left;
+    horiz-align: left;
+    border-bottom:2px solid #dee2e6
+}
+.table tbody+tbody{
+    border-top:2px solid #dee2e6
+}
+.table .table{background-color:#fff
+}
+.table-sm td,
+.table-sm th{
+    padding:.3rem
+}
+.mapcanvas {
+    height: auto;
+    position: absolute;
+    top: 188px; /* this is to account for your header */
+    bottom: 0;
+}
+
